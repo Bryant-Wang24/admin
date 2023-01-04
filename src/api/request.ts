@@ -17,7 +17,7 @@ export const request = (config) => {
       console.log('config', config);
       const token = localStorage.getItem('token');
       config.headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
         ...config.headers,
       };
       return config;

@@ -63,8 +63,8 @@ function Tags() {
           <Switch
             checkedIcon={<IconCheck />}
             uncheckedIcon={<IconClose />}
-            checked={record.status}
-            onChange={(checked) => onStatusChange(checked, record)}
+            checked={record.status === 1}
+            onChange={(checked) => onStatusChange(checked ? 1 : 0, record)}
           />
         );
       },
@@ -151,8 +151,8 @@ function Tags() {
     fetchData(1, pagination.pageSize, { name });
   }
 
-  const onStatusChange = async (status: boolean, row) => {
-    const res: any = await updateStatus({ id: row._id, status });
+  const onStatusChange = async (status: number, row) => {
+    const res: any = await updateStatus({ id: row.id, status });
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
