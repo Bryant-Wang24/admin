@@ -9,7 +9,6 @@ import comment, { CommentState } from '../pages/comment/redux/reducer';
 import recommend, { RecommendState } from '../pages/site/right/components/redux/reducer';
 import articles, { ArticlesState } from '../pages/articles/redux/reducer';
 
-
 export interface ReducerState {
   global: GlobalState;
   searchTable: SearchTableState;
@@ -31,5 +30,5 @@ export default combineReducers({
   user,
   comment,
   recommend,
-  articles
+  articles,
 });

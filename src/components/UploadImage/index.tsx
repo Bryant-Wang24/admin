@@ -32,7 +32,7 @@ const UploadImage = (props) => {
   const [imgsArr, setImgsArr] = useState(() => {
     console.log('value', value);
 
-    return value ? value : initImgs;
+    return value || initImgs;
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const UploadImage = (props) => {
           item.showReduce = length != 1;
           item.showAdd = length - 1 === idx;
         } else {
-          item.showReduce = true; //可以删除
+          item.showReduce = true; // 可以删除
           item.showAdd = false;
         }
       });

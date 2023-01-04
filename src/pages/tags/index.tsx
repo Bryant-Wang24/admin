@@ -13,6 +13,7 @@ import {
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconCheck, IconClose } from '@arco-design/web-react/icon';
+import dayjs from 'dayjs';
 import {
   TOGGLE_CONFIRM_LOADING,
   TOGGLE_VISIBLE,
@@ -26,7 +27,6 @@ import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, create, update, remove, updateStatus } from '../../api/tags';
 import { EditableCell, EditableRow } from './edit';
-import dayjs from 'dayjs';
 
 const FormItem = Form.Item;
 
@@ -73,18 +73,14 @@ function Tags() {
       title: '创建时间',
       dataIndex: 'createTime',
       render: (_, record) => {
-        return record.createTime
-          ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.createTime ? dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
     },
     {
       title: '修改时间',
       dataIndex: 'updateTime',
       render: (_, record) => {
-        return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.updateTime ? dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
     },
 
@@ -186,7 +182,7 @@ function Tags() {
     const data = form.getFields(); // {name:'123'}
     console.log('data', data);
     let func = create;
-    if (data._id) {
+    if (data.id) {
       func = update;
     }
     dispatch({
@@ -207,7 +203,14 @@ function Tags() {
       fetchData();
       Message.success(res.msg);
     } else {
-      Message.success('添加失败，请重试！');
+      Message.error(res.msg);
+      // 关闭loading
+      dispatch({
+        type: TOGGLE_CONFIRM_LOADING,
+        payload: {
+          confirmLoading: false,
+        },
+      });
     }
   };
 

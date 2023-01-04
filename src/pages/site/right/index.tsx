@@ -16,37 +16,32 @@ import Tab3 from './components/tab3';
 const HeaderFooter = () => {
   const [key, setKey] = useState('0');
   const onTabChange = (key) => {
-    setKey(key)
-  }
+    setKey(key);
+  };
 
-  return <>
+  return (
+    <>
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
-        <Breadcrumb.Item>侧栏配置</Breadcrumb.Item>
+        <Breadcrumb style={{ marginBottom: 20 }}>
+          <Breadcrumb.Item>侧栏配置</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Card hoverable>
+        <Card hoverable>
         <Tabs activeTab={key} onChange={onTabChange}>
 
           <Tabs.TabPane key='0' title='个人简介'>
-            {
-              key == '0' && <Tab0 />
-            }
-          </Tabs.TabPane>
+              {key == '0' && <Tab0 />}
+            </Tabs.TabPane>
           <Tabs.TabPane key='1' title='广告设置'>
-            {
-              key == '1' && <Tab1 />
-            }
-          </Tabs.TabPane>
+              {key == '1' && <Tab1 />}
+            </Tabs.TabPane>
           <Tabs.TabPane key='2' title='推荐设置'>
-            {
-              key == '2' && <Tab3 />
-            }
-          </Tabs.TabPane>
+              {key == '2' && <Tab3 />}
+            </Tabs.TabPane>
         </Tabs>
       </Card>
     </div>
-  </>
+    </>
 }
 
 export default HeaderFooter;

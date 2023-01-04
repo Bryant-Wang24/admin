@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Upload, Button, Input, Modal, Form, Spin, Message } from '@arco-design/web-react';
 
-import styles from './item.module.less';
 import { IconPlus, IconEdit, IconDelete } from '@arco-design/web-react/icon';
+import styles from './item.module.less';
 import { imagesType } from '../../const';
 import { upload } from '../../api/common';
 
@@ -24,12 +24,12 @@ const Item = (props) => {
 		icon
 	} = props;
 
-	const [imageUrl, setImageUrl] = useState<string>(imgUrl || '')
-	const [visible, setVisible] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>(imgUrl || '');
+  const [visible, setVisible] = useState(false);
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
 
-	useEffect(() => {
+  useEffect(() => {
 		setImageUrl(imgUrl);
 		form.setFieldsValue({
 			imgUrl
@@ -50,7 +50,7 @@ const Item = (props) => {
 		onCancel();
 	}
 
-	const handleChangeLink = (value) => {
+  const handleChangeLink = (value) => {
 		onChange({
 			index,
 			field: 'link',
@@ -65,7 +65,7 @@ const Item = (props) => {
 		});
 	}
 
-	const beforeUpload = async (file) => {
+  const beforeUpload = async (file) => {
 		const isImage = imagesType.includes(file.type);
 		if (!isImage) {
 			return Message.warning('请上传jpg,jpeg,png,gif格式图片');
@@ -75,7 +75,7 @@ const Item = (props) => {
 			return Message.warning('请上传2MB以内的图片');
 		}
 
-		setLoading(true);
+    setLoading(true);
 		setImageUrl('');
 		const formData = new FormData();
 		formData.append('file', file);
@@ -99,13 +99,16 @@ const Item = (props) => {
 		return false;
 	}
 
-	const uploadButton = <div className='arco-upload-trigger-picture'>
+  const uploadButton = (
+    <div className="arco-upload-trigger-picture">
 		<div className='arco-upload-trigger-picture-text'>
 			{loading ? <Spin /> : <IconPlus />}
 		</div>
 	</div>
 
-	return (<div className={styles.item}>
+
+  return (
+    <div className={styles.item}>
 		<div className={styles['item-content']}>
 			{
 				showImg && <div className={styles['upload-wrapper']}>
@@ -129,7 +132,7 @@ const Item = (props) => {
 				</div>
 			}
 
-			<div>
+        <div>
 				{
 					showLink && <Input onChange={handleChangeLink} value={link} className={styles.input} addBefore='链接' />
 				}
@@ -140,18 +143,18 @@ const Item = (props) => {
 
 			</div>
 
-			{
+  {
 				showAction && <div className={styles.action}>
 					{
-						showReduce && <Button icon={<IconDelete />} status="danger" shape='circle' className={styles['btn']} onClick={() => onRemove(index)} ></Button>
+						showReduce && <Button icon={<IconDelete />} status="danger" shape='circle' className={styles.btn} onClick={() => onRemove(index)}></Button>
 					}
 					{
-						showAdd && <Button icon={<IconPlus />} type="primary" shape='circle' className={styles['btn']} onClick={onAdd}></Button>
-					}
+						showAdd && <Button icon={<IconPlus />} type="primary" shape='circle' className={styles.btn} onClick={onAdd} />
+            )}
 				</div>
 			}
 
-			<Modal
+        <Modal
 				title={(
 					<div style={{ textAlign: 'left' }}>图片链接 </div>
 				)}
@@ -168,8 +171,8 @@ const Item = (props) => {
 
 				</Form>
 			</Modal>
-		</div >
-	</div >)
-}
+		</div>
+	</div>)
+};
 
 export default Item;

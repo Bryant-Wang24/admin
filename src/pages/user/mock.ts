@@ -4,27 +4,27 @@ import setupMock from '../../utils/setupMock';
 
 const Random = Mock.Random;
 
-let list = [];
+const list = [];
 
-for(let i =0;i<10;i++){
-  let obj = {
+for (let i = 0; i < 10; i++) {
+  const obj = {
     '_id|10': /[A-Z][a-z][-][0-9]/,
-    'uid|10':  /[A-Z][a-z][-][0-9]/,
-    'provider|1':['local','github'],
-    email:Random.email(),
-    password:'',
+    'uid|10': /[A-Z][a-z][-][0-9]/,
+    'provider|1': ['local', 'github'],
+    email: Random.email(),
+    password: '',
 
     nickName: Mock.mock('@cname'),
-    avatar:Random.image('200x100', '#FF6600'),
-    introduction:Random.cparagraph(),
+    avatar: Random.image('200x100', '#FF6600'),
+    introduction: Random.cparagraph(),
     loginTime: Random.datetime(),
     registerTime: Random.datetime(),
-    'articleIds|1-10':Random.guid()
-  }
+    'articleIds|1-10': Random.guid(),
+  };
   list.push(obj);
 }
 const data = Mock.mock({
-  'list|55':list
+  'list|55': list,
 });
 
 setupMock({
@@ -35,13 +35,13 @@ setupMock({
       switch (params.type) {
         case 'DELETE':
           const delBody = JSON.parse(params.body);
-          const idx = data.list.findIndex(item => item._id === delBody._id);
+          const idx = data.list.findIndex((item) => item._id === delBody._id);
           data.list.splice(idx, 1);
           return {
-            "msg": "用户删除成功",
-            "data": null,
-            "code": 0
-          }
+            msg: '用户删除成功',
+            data: null,
+            code: 0,
+          };
         case 'GET':
         default:
           const { page = 1, pageSize = 10 } = qs.parseUrl(params.url).query;
@@ -53,9 +53,6 @@ setupMock({
             totalCount: 55,
           };
       }
-
-
-
     });
   },
 });

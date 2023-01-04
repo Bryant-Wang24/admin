@@ -54,14 +54,13 @@ function renderRoutes(locale) {
         if (level > 1) {
           return <MenuItem key={route.key}>{titleDom}</MenuItem>;
         }
-        if(!route.hide){
+        if (!route.hide) {
           nodes.push(
             <MenuItem key={route.key}>
               <Link to={`/${route.key}`}>{titleDom}</Link>
             </MenuItem>
           );
         }
-       
       }
       if (isArray(route.children) && route.children.length) {
         if (level > 1) {
@@ -120,8 +119,8 @@ function PageLayout() {
   function toggleCollapse() {
     dispatch({
       type: 'TOGGLE_COLLAPSED',
-      payload: !collapsed
-    })
+      payload: !collapsed,
+    });
   }
 
   const paddingLeft = showMenu ? { paddingLeft: menuWidth } : {};
@@ -167,7 +166,9 @@ function PageLayout() {
           <Content>
             <Switch>
               {flattenRoutes.map((route, index) => {
-                return <Route exact key={index} path={`/${route.key}`} component={route.component} />;
+                return (
+                  <Route exact key={index} path={`/${route.key}`} component={route.component} />
+                );
               })}
               <Redirect push to={`/${defaultRoute}`} />
             </Switch>

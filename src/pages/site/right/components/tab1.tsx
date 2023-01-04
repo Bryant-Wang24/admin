@@ -29,7 +29,7 @@ const Tab1 = () => {
     console.log(data);
     form.setFieldsValue(data);
     setTime(data.updateTime);
-  }
+  };
 
   useEffect(() => {
     loadData();
@@ -38,23 +38,23 @@ const Tab1 = () => {
 
   const onRefresh = () => {
     loadData(true);
-  }
+  };
 
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-    console.log("values", values);
+    console.log('values', values);
 
     const postData = values;
-    postData.imgs = postData.imgs.map(item => {
+    postData.imgs = postData.imgs.map((item) => {
       return {
         imgUrl: item.imgUrl,
         link: item.link,
         // _id: item._id
-      }
-    })
+      };
+    });
 
-    console.log("postData", postData);
+    console.log('postData', postData);
     const func = values._id ? updateAd : addAd;
     const res: any = await func(postData);
     if (res.data) {
@@ -68,28 +68,39 @@ const Tab1 = () => {
   }
 
 
-  return <><Save time={time} onRefresh={onRefresh} onSave={onSave} />
-    <Form form={form} ><Row>
+  return (
+    <>
+      <Save time={time} onRefresh={onRefresh} onSave={onSave} />
+      <Form form={form}>
+        <Row>
 
       <Col span={12}>
-        <Form.Item label="广告图片(1-3张)" field="imgs" rules={[{ required: true, message: '请添加广告图片' }]}>
+            <Form.Item
+              label="广告图片(1-3张)"
+              field="imgs"
+              rules={[{ required: true, message: '请添加广告图片' }]}
+            >
           <UploadImage max={3} />
         </Form.Item>
-      </Col>
+          </Col>
       <Col span={12}>
-        <Form.Item label="展示位置" field="showPosition" rules={[{ required: true, message: '请选择展示位置' }]}>
+            <Form.Item
+              label="展示位置"
+              field="showPosition"
+              rules={[{ required: true, message: '请选择展示位置' }]}
+            >
           <Select mode='multiple' placeholder="请选择展示位置">
             {showPositions.map((option) => (
               <Select.Option key={option} value={option}>
-                {option}
+                    {option}
               </Select.Option>
-            ))}
+                ))}
           </Select>
-        </Form.Item>
+            </Form.Item>
       </Col>
-    </Row>
+        </Row>
     </Form>
-  </>
+    </>
 }
 
 export default Tab1;

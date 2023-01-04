@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Notification } from '@arco-design/web-react';
+
 export const request = (config) => {
   const http = axios.create({
     baseURL: '/api/v1',
@@ -11,12 +12,12 @@ export const request = (config) => {
     (config) => {
       if (config.method === 'put' || config.method === 'delete') {
         const id = config.data._id || config.data.id;
-        config.url = config.url + `/${id}`;
+        config.url += `/${id}`;
       }
       console.log('config', config);
       const token = localStorage.getItem('token');
       config.headers = {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${token}`,
         ...config.headers,
       };
       return config;
