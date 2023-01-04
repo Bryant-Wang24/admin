@@ -22,7 +22,6 @@ import {
   UPDATE_LOADING,
   UPDATE_PAGINATION,
 } from './redux/actionTypes';
-import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, create, update, remove, updateStatus } from '../../api/tags';
@@ -40,7 +39,6 @@ const formItemLayout = {
 };
 
 function Tags() {
-  const locale = useLocale();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [title, setTitle] = useState('添加标签');
@@ -85,7 +83,7 @@ function Tags() {
     },
 
     {
-      title: locale['searchTable.columns.operations'],
+      title: '操作',
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
@@ -95,7 +93,7 @@ function Tags() {
             type="text"
             size="small"
           >
-            {locale['searchTable.columns.operations.update']}
+            修改
           </Button>
           <Popconfirm
             disabled={record.status}
@@ -103,7 +101,7 @@ function Tags() {
             onOk={() => onDelete(record)}
           >
             <Button disabled={record.status} type="text" status="danger" size="small">
-              {locale['searchTable.columns.operations.delete']}
+              删除
             </Button>
           </Popconfirm>
         </div>

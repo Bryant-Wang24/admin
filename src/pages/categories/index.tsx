@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   Button,
@@ -21,7 +21,6 @@ import {
   UPDATE_LOADING,
   UPDATE_PAGINATION,
 } from './redux/actionTypes';
-import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, create, update, remove } from '../../api/categories';
@@ -39,8 +38,8 @@ const formItemLayout = {
 };
 
 function Categories() {
-  const locale = useLocale();
   const [form] = Form.useForm();
+  const [title, setTitle] = useState('添加分类');
   const dispatch = useDispatch();
 
   const columns = [
@@ -58,7 +57,7 @@ function Categories() {
       dataIndex: 'createTime',
       render: (_, record) => {
         return record.createTime
-          ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')
+          ? dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss')
           : '-';
       },
     },
@@ -67,22 +66,22 @@ function Categories() {
       dataIndex: 'updateTime',
       render: (_, record) => {
         return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
+          ? dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss')
           : '-';
       },
     },
 
     {
-      title: locale['searchTable.columns.operations'],
+      title: '操作',
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
-          {/* <Button type="text" size="small">
-            {locale['searchTable.columns.operations.update']}
-          </Button> */}
-          <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
+          <Button type="text" size="small" onClick={() => onUpdate(record)}>
+            修改
+          </Button>
+          <Popconfirm title="确定删除吗" onOk={() => onDelete(record)}>
             <Button type="text" status="danger" size="small">
-              {locale['searchTable.columns.operations.delete']}
+              删除
             </Button>
           </Popconfirm>
         </div>
@@ -149,13 +148,17 @@ function Categories() {
   const onOk = async () => {
     await form.validate();
     const data = form.getFields(); // {name:'123'}
+    let func = create;
+    if (data.id) {
+      func = update;
+    }
     dispatch({
       type: TOGGLE_CONFIRM_LOADING,
       payload: {
         confirmLoading: true,
       },
     });
-    const res: any = await create(data);
+    const res: any = await func(data);
     if (res.code === 0) {
       dispatch({
         type: TOGGLE_CONFIRM_LOADING,
@@ -167,7 +170,13 @@ function Categories() {
       fetchData();
       Message.success(res.msg);
     } else {
-      Message.success('添加失败，请重试！');
+      Message.error(res.msg);
+      dispatch({
+        type: TOGGLE_CONFIRM_LOADING,
+        payload: {
+          confirmLoading: false,
+        }
+      })
     }
   };
 
@@ -191,6 +200,16 @@ function Categories() {
     }
   };
 
+  const onUpdate = (row) => {
+    dispatch({
+      type: TOGGLE_VISIBLE,
+      payload: {
+        visible: true,
+      },
+    });
+    form.setFieldsValue(row);
+    setTitle('修改分类');
+  };
   return (
     <div className={styles.container}>
       <Breadcrumb style={{ marginBottom: 20 }}>
@@ -239,7 +258,7 @@ function Categories() {
         />
 
         <Modal
-          title={<div style={{ textAlign: 'left' }}> 添加分类 </div>}
+          title={<div style={{ textAlign: 'left' }}> {title} </div>}
           visible={visible}
           onOk={onOk}
           confirmLoading={confirmLoading}
