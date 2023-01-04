@@ -17,7 +17,7 @@ export const defaultRoute = 'welcome';
 
 export const routes = [
   {
-    name: 'menu.welcome',
+    name: '欢迎页',
     key: 'welcome',
     icon: <IconGift />,
     componentPath: 'welcome',
@@ -49,7 +49,7 @@ export const routes = [
     hide: true,
   },
   {
-    name: 'menu.categories',
+    name: '分类管理',
     key: 'categories',
     icon: <IconStorage />,
     componentPath: 'categories',

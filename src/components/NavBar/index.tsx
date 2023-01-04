@@ -3,7 +3,7 @@ import {
   Tooltip,
   Button,
   Avatar,
-  Select,
+  // Select,
   Typography,
   Dropdown,
   Menu,
@@ -13,7 +13,6 @@ import {
 import { IconSunFill, IconMoonFill } from '@arco-design/web-react/icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReducerState } from '../../redux';
-import useLocale from '../../utils/useLocale';
 import Logo from '../../assets/logo.svg';
 import history from '../../history';
 import { logout } from '../../api/login';
@@ -23,7 +22,6 @@ import { logout } from '../../api/login';
 import styles from './style/index.module.less';
 
 function Navbar() {
-  const locale = useLocale();
   const theme = useSelector((state: ReducerState) => state.global.theme);
   const userInfo = useSelector((state: ReducerState) => state.login.userInfo);
   const dispatch = useDispatch();
@@ -57,31 +55,31 @@ function Navbar() {
         <li>
           <a>{locale['navbar.docs']}</a>
         </li> */}
-        <li>
-          <Select
-            options={[
-              { label: '中文', value: 'zh-CN' },
-              { label: 'English', value: 'en-US' },
-            ]}
-            value={localStorage.getItem('arco-lang')}
-            bordered={false}
-            triggerProps={{
-              autoAlignPopupWidth: false,
-              autoAlignPopupMinWidth: true,
-              position: 'bl',
-            }}
-            onChange={(value) => {
-              localStorage.setItem('arco-lang', value);
-              window.location.reload();
-            }}
-          />
-        </li>
+        {/*<li>*/}
+        {/*  <Select*/}
+        {/*    options={[*/}
+        {/*      { label: '中文', value: 'zh-CN' },*/}
+        {/*      { label: 'English', value: 'en-US' },*/}
+        {/*    ]}*/}
+        {/*    value={localStorage.getItem('arco-lang')}*/}
+        {/*    bordered={false}*/}
+        {/*    triggerProps={{*/}
+        {/*      autoAlignPopupWidth: false,*/}
+        {/*      autoAlignPopupMinWidth: true,*/}
+        {/*      position: 'bl',*/}
+        {/*    }}*/}
+        {/*    onChange={(value) => {*/}
+        {/*      localStorage.setItem('arco-lang', value);*/}
+        {/*      window.location.reload();*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*</li>*/}
         <li>
           <Tooltip
             content={
               theme === 'light'
-                ? locale['settings.navbar.theme.toDark']
-                : locale['settings.navbar.theme.toLight']
+                ? '点击切换为暗黑模式'
+                : '点击切换为亮色模式'
             }
           >
             <Button
@@ -100,7 +98,7 @@ function Navbar() {
         {userInfo && (
           <li>
             <Avatar size={24} style={{ marginRight: 8 }}>
-              <img alt="avatar" src={userInfo.avatar} />
+              <img alt="avatar" src="https://avatars.githubusercontent.com/u/71873944?s=400&u=017e0efe551030beadc4437f4a075d1c901e589a&v=4" />
             </Avatar>
             <Dropdown
               trigger="click"
