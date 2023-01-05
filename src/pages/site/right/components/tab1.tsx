@@ -101,6 +101,7 @@ const Tab1 = () => {
         </Row>
     </Form>
     </>
+  );
 }
 
 export default Tab1;

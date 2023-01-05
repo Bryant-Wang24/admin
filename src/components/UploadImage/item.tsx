@@ -105,74 +105,66 @@ const Item = (props) => {
 			{loading ? <Spin /> : <IconPlus />}
 		</div>
 	</div>
+	)
 
 
   return (
     <div className={styles.item}>
-		<div className={styles['item-content']}>
-			{
-				showImg && <div className={styles['upload-wrapper']}>
-					<Upload
-						showUploadList={false}
-						name="file"
-						listType="picture-card"
-						beforeUpload={beforeUpload}
-					>
+			<div className={styles['item-content']}>
+				{
+					showImg && <div className={styles['upload-wrapper']}>
+						<Upload
+							showUploadList={false}
+							name="file"
+							listType="picture-card"
+							beforeUpload={beforeUpload}
+						>
+							{
+								imageUrl ? <div className='arco-upload-list-item-picture custom-upload-avatar'>
+									<img src={imageUrl}  alt=""/>
+									<div className='arco-upload-list-item-picture-mask'>
+										<IconEdit />
+									</div>
+								</div> : (uploadButton)
+							}
+
+						</Upload>
+						<Button className={styles['btn-input']} onClick={() => setVisible(true)} type="primary">输入链接</Button>
+					</div>
+				}
+				<div>
+					{showLink && <Input onChange={handleChangeLink} value={link} className={styles.input} addBefore='链接' />}
+					{showIcon && <Input onChange={handleChangeIcon} value={icon} className={styles.input} addBefore='图标' />}
+				</div>
+
+				{
+					showAction &&
+					<div className={styles.action}>
 						{
-							imageUrl ? <div className='arco-upload-list-item-picture custom-upload-avatar'>
-								<img src={imageUrl} />
-								<div className='arco-upload-list-item-picture-mask'>
-									<IconEdit />
-								</div>
-							</div> : (uploadButton)
+							showReduce && <Button icon={<IconDelete />} status='danger' shape='circle' className={styles.btn} onClick={() => onRemove(index)}/>
 						}
-
-					</Upload>
-					<Button className={styles['btn-input']} onClick={() => setVisible(true)} type="primary">输入链接</Button>
-				</div>
-			}
-
-        <div>
-				{
-					showLink && <Input onChange={handleChangeLink} value={link} className={styles.input} addBefore='链接' />
+						{
+							showAdd && <Button icon={<IconPlus />} type="primary" shape='circle' className={styles.btn} onClick={onAdd} />
+						}
+					</div>
 				}
-				{
-					showIcon && <Input onChange={handleChangeIcon} value={icon} className={styles.input} addBefore='图标' />
-				}
-
-
+					<Modal
+					title={(
+						<div style={{ textAlign: 'left' }}>图片链接 </div>
+					)}
+					visible={visible}
+					onOk={onOk}
+					onCancel={onCancel}
+					>
+					<Form form={form}>
+						<Form.Item label='图片链接' field='imgUrl' rules={[{ required: true, message: '请输入图片链接' }]}>
+							<Input placeholder='请输入图片链接' />
+						</Form.Item>
+					</Form>
+				</Modal>
 			</div>
-
-  {
-				showAction && <div className={styles.action}>
-					{
-						showReduce && <Button icon={<IconDelete />} status="danger" shape='circle' className={styles.btn} onClick={() => onRemove(index)}></Button>
-					}
-					{
-						showAdd && <Button icon={<IconPlus />} type="primary" shape='circle' className={styles.btn} onClick={onAdd} />
-            )}
-				</div>
-			}
-
-        <Modal
-				title={(
-					<div style={{ textAlign: 'left' }}>图片链接 </div>
-				)}
-				visible={visible}
-				onOk={onOk}
-				onCancel={onCancel}
-			>
-				<Form
-					form={form}
-				>
-					<Form.Item label='图片链接' field='imgUrl' rules={[{ required: true, message: '请输入图片链接' }]}>
-						<Input placeholder='请输入图片链接' />
-					</Form.Item>
-
-				</Form>
-			</Modal>
 		</div>
-	</div>)
+	)
 };
 
 export default Item;

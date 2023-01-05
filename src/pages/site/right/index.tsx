@@ -42,6 +42,7 @@ const HeaderFooter = () => {
       </Card>
     </div>
     </>
+  );
 }
 
 export default HeaderFooter;

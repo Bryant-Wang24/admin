@@ -146,15 +146,13 @@ const HeaderFooter = () => {
                   <Radio value={2}>文本</Radio>
                 </Radio.Group>
                 </Form.Item>
-              {
                   <Form.Item
                     label="选择图片"
                     field="header.logo"
                     rules={[{ required: true, message: '请添加Logo图片' }]}
                   >
-                  <UploadImage showLink={false} showAction={false} />
+                    <UploadImage showLink={false} showAction={false} />
                   </Form.Item>
-                )}
                 {type === 2 && (
                   <Form.Item
                     label="文本"
@@ -188,6 +186,7 @@ const HeaderFooter = () => {
         </Form>
     </div>
     </>
+  );
 }
 
 export default HeaderFooter;

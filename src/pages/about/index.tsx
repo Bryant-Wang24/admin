@@ -139,7 +139,8 @@ const About = () => {
         </Form>
         </Card>
       </div>
-  </>
+    </>
+  );
 }
 
 export default About;

@@ -130,8 +130,8 @@ const About = () => {
                   field="categoriesDetailBgImg"
                   rules={[{ required: true, message: '请添加分类详情背景图片' }]}
                 >
-              <UploadImage showLink={false} showAction={false} />
-            </Form.Item>
+                  <UploadImage showLink={false} showAction={false} />
+                </Form.Item>
               </Col>
             <Col span={4}> <Form.Item label="标签背景图片" field="tagsBgImg" rules={[{ required: true, message: '请添加标签背景图片' }]}>
               <UploadImage showLink={false} showAction={false} />
@@ -144,9 +144,9 @@ const About = () => {
                   field="tagsDetailBgImg"
                   rules={[{ required: true, message: '请添加标签详情背景图片' }]}
                 >
-              <UploadImage showLink={false} showAction={false} />
+                  <UploadImage showLink={false} showAction={false} />
                 </Form.Item>
-            </Col>
+              </Col>
               <Col span={4}>
                 {' '}
                 <Form.Item
@@ -154,8 +154,8 @@ const About = () => {
                   field="aboutBgImg"
                   rules={[{ required: true, message: '请添加关于背景图片' }]}
                 >
-              <UploadImage showLink={false} showAction={false} />
-            </Form.Item>
+                  <UploadImage showLink={false} showAction={false} />
+                </Form.Item>
               </Col>
           </Row>
           <Row>
@@ -167,9 +167,9 @@ const About = () => {
                   rules={[
                     { required: true, message: '请输入简介' },
                     {
-              maxLength: 800, message: '不能超过800个字符'
-            }]}
-            >
+                      maxLength: 800, message: '不能超过800个字符'
+                    }]}
+                >
                   <Input.TextArea
                     onFocus={() => setShowTip(true)}
                     onBlur={() => setShowTip(false)}
@@ -181,8 +181,8 @@ const About = () => {
                   <div className={styles['desc-tip']}>
                   还可以输入
                   <Link status='error'>
-                    {resetLength}
-                    个字符
+                    {resetLength}个字符
+                  </Link>
                   </div>
                 )}
               </Col>
@@ -190,12 +190,13 @@ const About = () => {
 
             <Form.Item label="简介特效" field="effects" triggerPropName="checked">
               <Switch checkedText="开启" uncheckedText="关闭" />
-          </Form.Item>
+            </Form.Item>
 
         </Form>
         </Card>
     </div>
     </>
-}
+  );
+};
 
 export default About;
