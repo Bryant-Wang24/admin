@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Notification } from '@arco-design/web-react';
+import { Message} from '@arco-design/web-react';
 
 export const request = (config) => {
   const http = axios.create({
@@ -28,24 +28,18 @@ export const request = (config) => {
   // 响应拦截
   http.interceptors.response.use(
     (res) => {
-      console.log('res-------', res);
+      if (res.data.code === 403) { //权限错误
+        location.href = '/#/admin/login';
+      }
+      if (res.data.code === 401) { //token认证错误
+        Message.error(res.data.msg);
+        location.href = '/#/admin/login';
+      }
       return res.data ? res.data : res;
     },
     (error) => {
-      console.log('error===', error.response); // 注意这里必须打印error.response
-      const response = error.response;
-      if (response && response.status) {
-        if (response.status === 403) {
-          // location.href = '/403';
-          location.href = '/#/admin/login';
-          Notification.error({ title: '权限错误', content: response.data.msg });
-        }
-        if (response.status === 401) {
-          // location.href = '/401';
-          location.href = '/#/admin/login';
-          Notification.error({ title: 'Token错误', content: 'token过期，请重新登录' });
-        }
-      }
+      console.log('error', error);
+      Message.error(error.msg);
     }
   );
 
