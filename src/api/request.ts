@@ -39,7 +39,7 @@ export const request = (config) => {
     },
     (error) => {
       console.log('error', error);
-      Message.error(error.msg);
+      // Message.error(error.msg);
     }
   );
 
