@@ -87,7 +87,7 @@ const Edit = () => {
       pageSize: 9999,
     });
     const list = res.data.list?.map((item) => {
-      item.key = item._id;
+      item.key = item.id;
       item.value = item.name;
       return item;
     });
@@ -100,7 +100,7 @@ const Edit = () => {
       pageSize: 9999,
     });
     const list = res.data.list?.map((item) => {
-      item.key = item._id;
+      item.key = item.id;
       item.value = item.name;
       return item;
     });
@@ -123,8 +123,14 @@ const Edit = () => {
   const onSave = async (publishStatus) => {
     await form.validate();
     const values = await form.getFields();
+    console.log('values', values);
     values.cover = values.cover[0].imgUrl;
     values.publishStatus = publishStatus;
+    values.isComment = values.isComment ? 1 : 0;
+    values.isLike = values.isLike ? 1 : 0;
+    values.isCollect = values.isCollect ? 1 : 0;
+    values.isReward = values.isReward ? 1 : 0;
+    values.tags = values.tags.toString();
     values.status = 1;
     if (id) {
       values.id = id;
@@ -171,7 +177,7 @@ const Edit = () => {
 
       <div className={styles.container}>
         <Breadcrumb style={{ marginBottom: 20 }}>
-          <Breadcrumb.Item>编辑文章</Breadcrumb.Item>
+          <Breadcrumb.Item>{search ? '编辑文章' : '添加文章'}</Breadcrumb.Item>
         </Breadcrumb>
         <Card hoverable>
           <Form
@@ -248,7 +254,7 @@ const Edit = () => {
                 >
                   <Select mode="multiple" placeholder="请给文章贴个标签">
                     {tagsArr.map((item) => (
-                      <Select.Option key={item.key} value={item.value}>
+                      <Select.Option key={item.key} value={item.id}>
                         {item.value}
                       </Select.Option>
                     ))}

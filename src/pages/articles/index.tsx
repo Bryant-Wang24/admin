@@ -55,7 +55,7 @@ function Articles() {
       pageSize: 9999,
     });
     const list = res.data.list?.map((item) => {
-      item.key = item._id;
+      item.key = item.id;
       item.value = item.name;
       return item;
     });
@@ -68,7 +68,7 @@ function Articles() {
       pageSize: 9999,
     });
     const list = res.data.list?.map((item) => {
-      item.key = item._id;
+      item.key = item.id;
       item.value = item.name;
       return item;
     });
@@ -83,7 +83,7 @@ function Articles() {
   // 发布状态修改
   const onChangePublishStatus = async (record) => {
     const postData = {
-      id: record._id,
+      id: record.id,
       publishStatus: record.publishStatus === 1 ? 2 : 1,
     };
     const res: any = await updatePublishStatus(postData);
@@ -97,13 +97,13 @@ function Articles() {
 
   // 查看
   const onView = (record) => {
-    history.push(`/articles/edit?id=${record._id}`);
+    history.push(`/articles/edit?id=${record.id}`);
   };
 
   // 文章状态修改
   const onStatusChange = async (checked, record) => {
     const postData = {
-      id: record._id,
+      id: record.id,
       status: checked ? 1 : 2,
     };
     const res: any = await updateStatus(postData);
@@ -143,20 +143,12 @@ function Articles() {
       title: '标签',
       dataIndex: 'tags',
       render: (_, record) => {
-        const result = [];
-        for (let i = 0; i < record.tags.length; i += 3) {
-          result.push(record.tags.slice(i, i + 3)); // i=0 0-3 i=3 3-6
+        if (!record.tags) {
+          return null;
         }
-        return result.map((item, index) => {
-          return (
-            <div style={{ marginBottom: 10 }} key={index}>
-              {item.map((sub) => (
-                <Tag style={{ marginRight: 10 }} key={sub}>
-                  {sub}
-                </Tag>
-              ))}
-            </div>
-          );
+        const tags = record.tags?.split(',');
+        return tags?.map((item) => {
+          return <Tag color='arcoblue' key={item} style={{ marginRight: 2,marginBottom:2 }}>{item}</Tag>;
         });
       },
     },
@@ -201,7 +193,7 @@ function Articles() {
       title: '创建时间',
       dataIndex: 'createTime',
       render: (_, record) => {
-        return dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss');
       },
     },
     {
@@ -209,7 +201,7 @@ function Articles() {
       dataIndex: 'updateTime',
       render: (_, record) => {
         return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
+          ? dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss')
           : '-';
       },
     },
@@ -245,7 +237,7 @@ function Articles() {
   const articlesState = useSelector((state: ReducerState) => state.articles);
 
   const { data, pagination, loading, formParams } = articlesState;
-
+  console.log("data", data)
   useEffect(() => {
     fetchData();
   }, []);
@@ -260,7 +252,7 @@ function Articles() {
       };
       console.log(postData);
       const res: any = await getList(postData);
-      console.log(res);
+      console.log("res",res);
       if (res) {
         dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
@@ -310,12 +302,12 @@ function Articles() {
   };
 
   const onUpdate = (row) => {
-    history.push(`/articles/edit?id=${row._id}`);
+    history.push(`/articles/edit?id=${row.id}`);
   };
 
   const onDelete = async (row) => {
     const res: any = await remove({
-      id: row._id,
+      id: row.id,
     });
     if (res.code === 0) {
       Message.success(res.msg);
@@ -374,7 +366,7 @@ function Articles() {
           form={form}
           initialValues={{
             categories: '',
-            status: '0',
+            // status: '0',
             publishStatus: '0',
           }}
           {...layout}
@@ -389,12 +381,8 @@ function Articles() {
             </Col>
             <Col span={6}>
               <Form.Item field="categories" label="分类">
-                <Select placeholder="请选择分类">
+                <Select placeholder="请选择分类" allowClear>
                   {[
-                    {
-                      key: '',
-                      value: '全部',
-                    },
                     ...categoriesArr,
                   ].map((item) => (
                     <Select.Option key={item.key} value={item.value}>
@@ -417,12 +405,8 @@ function Articles() {
             </Col>
             <Col span={6}>
               <Form.Item field="status" label="文章状态">
-                <Select placeholder="请选择文章状态">
+                <Select placeholder="请选择文章状态" allowClear>
                   {[
-                    {
-                      key: '0',
-                      value: '全部',
-                    },
                     ...statusOptions,
                   ].map((item) => (
                     <Select.Option key={item.key} value={item.key}>
@@ -473,7 +457,7 @@ function Articles() {
         </Form>
 
         <Table
-          rowKey="_id"
+          rowKey="id"
           loading={loading}
           onChange={onChangeTable}
           pagination={pagination}
