@@ -282,14 +282,14 @@ function Articles() {
       postData.tags = postData.tags.join(',');
     }
     if (postData.createTime) {
-      postData.createStartTime = dayjs(postData.createTime[0]).unix();
-      postData.createEndTime = dayjs(postData.createTime[1]).unix();
+      postData.createStartTime = postData.createTime[0]
+      postData.createEndTime = postData.createTime[1]
       delete postData.createTime;
     }
 
     if (postData.updateTime) {
-      postData.updateStartTime = dayjs(postData.updateTime[0]).unix();
-      postData.updateEndTime = dayjs(postData.updateTime[1]).unix();
+      postData.updateStartTime = postData.updateTime[0]
+      postData.updateEndTime = postData.updateTime[1]
       delete postData.updateTime;
     }
     console.log('postData', postData);
@@ -367,7 +367,7 @@ function Articles() {
           initialValues={{
             categories: '',
             // status: '0',
-            publishStatus: '0',
+            // publishStatus: '0',
           }}
           {...layout}
           style={{ marginBottom: 20 }}
@@ -376,7 +376,7 @@ function Articles() {
           <Row>
             <Col span={6}>
               <Form.Item field="title" label="文章标题">
-                <Input placeholder="请输入文章标题" />
+                <Input placeholder="请输入文章标题" allowClear />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -420,12 +420,8 @@ function Articles() {
           <Row>
             <Col span={6}>
               <Form.Item field="publishStatus" label="发布状态">
-                <Select placeholder="请选择文章发布状态" defaultValue="">
+                <Select placeholder="请选择文章发布状态" allowClear>
                   {[
-                    {
-                      key: '0',
-                      value: '全部',
-                    },
                     ...publishStatusOptions,
                   ].map((item) => (
                     <Select.Option key={item.key} value={item.key}>
@@ -437,12 +433,15 @@ function Articles() {
             </Col>
             <Col span={6}>
               <Form.Item field="createTime" label="创建时间">
-                <DatePicker.RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                <DatePicker.RangePicker 
+                showTime
+                format='YYYY-MM-DD HH:mm:ss'
+                />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item field="updateTime" label="修改时间">
-                <DatePicker.RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                <DatePicker.RangePicker showTime format='YYYY-MM-DD HH:mm:ss'  />
               </Form.Item>
             </Col>
             <Col span={5} offset={1}>
