@@ -138,7 +138,7 @@ const Edit = () => {
     values.tags = values.tags.toString();
     values.status = 1;
     if (id) {
-      values.id = id;
+      values.id = parseInt(id);
     }
     const func = id ? update : create;
     const res: any = await func(values);
