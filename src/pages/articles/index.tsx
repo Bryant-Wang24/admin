@@ -365,7 +365,7 @@ function Articles() {
         <Form
           form={form}
           initialValues={{
-            categories: '',
+            // categories: '',
             // status: '0',
             // publishStatus: '0',
           }}

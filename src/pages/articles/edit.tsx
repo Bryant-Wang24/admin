@@ -91,7 +91,8 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.map((item) => {
+    const list = res.data.list?.filter(item=>item.status===1)
+    .map((item) => {
       item.key = item.id;
       item.value = item.name;
       return item;
