@@ -77,6 +77,11 @@ const Edit = () => {
         imgUrl: data.cover,
       },
     ];
+    if(data.tags===''){
+      data.tags = [];
+    }else{
+      data.tags = data.tags.split(',').map(item=>parseInt(item))
+    }
     form.setFieldsValue(data);
     setTime(data.updateTime);
   };
