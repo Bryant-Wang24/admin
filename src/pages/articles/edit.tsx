@@ -91,12 +91,14 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.filter(item=>item.status===1)
-    .map((item) => {
+    let list = res.data.list?.map((item) => {
       item.key = item.id;
       item.value = item.name;
       return item;
     });
+    if(!id){
+      list = list.filter(item=>item.status===1)
+    }
     setTagsArr(list);
   };
 
