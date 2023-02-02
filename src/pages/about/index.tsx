@@ -51,13 +51,13 @@ const About = () => {
 
     values.imgs = values.imgs?.map((item) => {
       return {
-        // _id: item._id,
+        id: item.id,
         imgUrl: item.imgUrl,
         link: item.link,
       };
     });
     console.log('values', values);
-    const func = values._id ? updateAbout : addAbout;
+    const func = values.id ? updateAbout : addAbout;
     const res: any = await func(values);
     if (res.data) {
       loadData();
