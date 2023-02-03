@@ -33,6 +33,7 @@ const About = () => {
     }
     const data = res.data;
     if (!data) return;
+    data.showResume = data.showResume === 1 ? true : false;
     form.setFieldsValue(data);
     onChangeDesc(data.desc);
     setTime(data.updateTime);
@@ -48,7 +49,7 @@ const About = () => {
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-
+    values.showResume = values.showResume ? 1 : 2;
     values.imgs = values.imgs?.map((item) => {
       return {
         id: item.id,
