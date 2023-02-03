@@ -319,7 +319,7 @@ function Articles() {
 
   const handleUpdateCollectStatus = async (isCollect) => {
     const res: any = await updateCollectStatus({
-      isCollect,
+      isCollect: isCollect ? 1 : 2,
     });
     if (res.code === 0) {
       Message.success(res.msg);
