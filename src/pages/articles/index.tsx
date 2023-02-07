@@ -89,7 +89,8 @@ function Articles() {
     const res: any = await updatePublishStatus(postData);
     if (res.code === 0) {
       Message.success(res.msg);
-      fetchData();
+      const { current, pageSize } = pagination;
+      fetchData(current, pageSize);
     } else {
       Message.error('文章状态修改失败，请重试！');
     }
@@ -109,7 +110,8 @@ function Articles() {
     const res: any = await updateStatus(postData);
     if (res.code === 0) {
       Message.success(res.msg);
-      fetchData();
+      const { current, pageSize } = pagination;
+      fetchData(current, pageSize);
     } else {
       Message.error('文章状态修改失败，请重试！');
     }
