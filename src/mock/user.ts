@@ -25,8 +25,8 @@ setupMock({
 
     // 登录
     Mock.mock(new RegExp('/api/v1/admin/login'), (params) => {
-      const { userName, password } = JSON.parse(params.body);
-      if (!userName) {
+      const { username, password } = JSON.parse(params.body);
+      if (!username) {
         return {
           code: 0,
           data: null,
@@ -40,12 +40,12 @@ setupMock({
           msg: '密码不能为空',
         };
       }
-      if (userName === 'admin' && password === '123456') {
+      if (username === 'admin' && password === '123456') {
         return {
           code: 0,
           data: {
             token: 'admin',
-            userName: 'admin',
+            username: 'admin',
           },
           msg: '登录成功',
         };

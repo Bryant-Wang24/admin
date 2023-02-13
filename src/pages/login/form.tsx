@@ -61,18 +61,18 @@ export default function LoginForm() {
       <div className={styles['login-form-error-msg']}>{errorMessage}</div>
       <Form className={styles['login-form']} layout="vertical" ref={formRef}>
         <Form.Item
-          field="userName"
+          field="username"
           rules={[
-            { required: true, message: locale['login.p_userName'] },
+            { required: true, message: locale['login.p_username'] },
             {
               match: /^[\u4E00-\u9FA5A-Za-z0-9_]{5,20}$/,
-              message: locale['login.p_userName_pattern'],
+              message: locale['login.p_username_pattern'],
             },
           ]}
         >
           <Input
             prefix={<IconUser />}
-            placeholder={locale['login.p_userName']}
+            placeholder={locale['login.p_username']}
             onPressEnter={onSubmitClick}
           />
         </Form.Item>

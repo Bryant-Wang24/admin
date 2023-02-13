@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
       const userInfo = {
         ...action.payload,
         avatar: 'http://nevergiveupt.top:3000/static/mine.d0f112df.jpeg',
-        name: action.payload.userName,
+        name: action.payload.username,
       };
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       state.userInfo = userInfo;
