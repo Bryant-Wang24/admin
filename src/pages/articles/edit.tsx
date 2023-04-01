@@ -340,6 +340,7 @@ const Edit = () => {
               field="content"
               rules={[{ required: true, message: '请撰写文章' }]}
             >
+              {/* @ts-ignore */}
               <Editor
                 ref={(el) => (editorRef.current = el)}
                 addImg={(file) => addImg(file)}

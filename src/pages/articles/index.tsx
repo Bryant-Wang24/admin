@@ -435,6 +435,7 @@ function Articles() {
             </Col>
             <Col span={6}>
               <Form.Item field="createTime" label="创建时间">
+                {/* @ts-ignore */}
                 <DatePicker.RangePicker 
                 showTime
                 format='YYYY-MM-DD HH:mm:ss'
@@ -443,6 +444,7 @@ function Articles() {
             </Col>
             <Col span={6}>
               <Form.Item field="updateTime" label="修改时间">
+                {/* @ts-ignore */}
                 <DatePicker.RangePicker showTime format='YYYY-MM-DD HH:mm:ss'  />
               </Form.Item>
             </Col>

@@ -128,6 +128,7 @@ function SearchTable() {
             <Button type="primary">{locale['searchTable.addPolicy']}</Button>
           </div>
           <div>
+            {/* @ts-ignore */}
             <DatePicker.RangePicker style={{ marginRight: 8 }} onChange={onDateChange} />
             <Input.Search
               style={{ width: 300 }}
