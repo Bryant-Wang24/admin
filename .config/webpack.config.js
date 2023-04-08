@@ -27,7 +27,7 @@ exports.site = (config, env) => {
   );
   config.devServer = {
     proxy: {
-      '/api/v1': 'http://127.0.0.1:7001',
+      '/api/v1': 'http://127.0.0.1:9000',
     },
   };
 };

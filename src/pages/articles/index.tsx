@@ -8,7 +8,7 @@ import {
   Message,
   Popconfirm,
   Select,
-  Badge,
+  // Badge,
   Avatar,
   Tag,
   Breadcrumb,
@@ -33,7 +33,7 @@ import {
   getList,
   remove,
   updateStatus,
-  updatePublishStatus,
+  // updatePublishStatus,
   updateCollectStatus,
 } from '../../api/articles';
 import { publishStatusOptions, statusOptions } from '../../const';
@@ -81,25 +81,25 @@ function Articles() {
   }, []);
 
   // 发布状态修改
-  const onChangePublishStatus = async (record) => {
-    const postData = {
-      id: record.id,
-      publishStatus: record.publishStatus === 1 ? 2 : 1,
-    };
-    const res: any = await updatePublishStatus(postData);
-    if (res.code === 0) {
-      Message.success(res.msg);
-      const { current, pageSize } = pagination;
-      fetchData(current, pageSize);
-    } else {
-      Message.error('文章状态修改失败，请重试！');
-    }
-  };
+  // const onChangePublishStatus = async (record) => {
+  //   const postData = {
+  //     id: record.id,
+  //     publishStatus: record.publishStatus === 1 ? 2 : 1,
+  //   };
+  //   const res: any = await updatePublishStatus(postData);
+  //   if (res.code === 0) {
+  //     Message.success(res.msg);
+  //     const { current, pageSize } = pagination;
+  //     fetchData(current, pageSize);
+  //   } else {
+  //     Message.error('文章状态修改失败，请重试！');
+  //   }
+  // };
 
   // 查看
-  const onView = (record) => {
-    history.push(`/articles/edit?id=${record.id}`);
-  };
+  // const onView = (record) => {
+  //   history.push(`/articles/edit?id=${record.id}`);
+  // };
 
   // 文章状态修改
   const onStatusChange = async (checked, record) => {
@@ -140,6 +140,7 @@ function Articles() {
     {
       title: '分类',
       dataIndex: 'categories',
+      width:90
     },
     {
       title: '标签',
@@ -164,6 +165,7 @@ function Articles() {
     {
       title: '文章状态',
       dataIndex: 'status',
+      width:100,
       render: (_, record: any) => {
         return (
           <Switch
@@ -175,21 +177,21 @@ function Articles() {
         );
       },
     },
-    {
-      title: '发布状态',
-      dataIndex: 'publishStatus',
-      render: (_, record) => {
-        const texts = {
-          1: '已发布',
-          2: '未发布',
-        };
-        const enums = {
-          1: 'success',
-          2: 'error',
-        };
-        return <Badge status={enums[record.publishStatus]} text={texts[record.publishStatus]} />;
-      },
-    },
+    // {
+    //   title: '发布状态',
+    //   dataIndex: 'publishStatus',
+    //   render: (_, record) => {
+    //     const texts = {
+    //       1: '已发布',
+    //       2: '未发布',
+    //     };
+    //     const enums = {
+    //       1: 'success',
+    //       2: 'error',
+    //     };
+    //     return <Badge status={enums[record.publishStatus]} text={texts[record.publishStatus]} />;
+    //   },
+    // },
 
     {
       title: '创建时间',
@@ -213,12 +215,12 @@ function Articles() {
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
-          <Button onClick={() => onChangePublishStatus(record)} type="text" size="small">
+          {/* <Button onClick={() => onChangePublishStatus(record)} type="text" size="small">
             {record.publishStatus === 1 ? '下线' : '发布'}
           </Button>
           <Button onClick={() => onView(record)} type="text" size="small">
             查看
-          </Button>
+          </Button> */}
           {record.publishStatus === 2 && (
             <>
               <Button onClick={() => onUpdate(record)} type="text" size="small">

@@ -8,10 +8,15 @@ import history from '../../history';
 import { ReducerState } from '../../redux';
 
 const Save = (props) => {
-  const { time, showBack, onRefresh, onSave, onBack, onPublish } = props;
-  const message = time
-    ? `上次保存时间：${dayjs(time).format('YYYY-MM-DD HH:mm:ss')}`
-    : '暂无操作';
+  const {
+    time,
+    showBack,
+    onRefresh,
+    onSave,
+    onBack,
+    // onPublish
+  } = props;
+  const message = time ? `上次保存时间：${dayjs(time).format('YYYY-MM-DD HH:mm:ss')}` : '暂无操作';
   const goBack = () => {
     history.goBack();
   };
@@ -42,11 +47,11 @@ const Save = (props) => {
             保存
           </Button>
         )}
-        {onPublish && (
+        {/* {onPublish && (
           <Button onClick={onPublish} className={styles.btn} type="primary" icon={<IconSave />}>
             发布
           </Button>
-        )}
+        )} */}
       </div>
     </Card>
   );
