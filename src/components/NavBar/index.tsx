@@ -35,6 +35,8 @@ function Navbar() {
         Message.success(res.msg);
         history.push('/admin/login');
       }
+    }else if(key==='publish'){
+      history.push("/articles/edit")
     }
   };
 
@@ -104,9 +106,9 @@ function Navbar() {
               trigger="click"
               droplist={
                 <div>
-                  <Menu onClickMenuItem={onMenuItemClick}>
+                  {/* <Menu onClickMenuItem={onMenuItemClick}>
                     <Menu.Item key="publish">发布文章</Menu.Item>
-                  </Menu>
+                  </Menu> */}
                   <Menu onClickMenuItem={onMenuItemClick}>
                     <Menu.Item key="logout">退出登录</Menu.Item>
                   </Menu>
