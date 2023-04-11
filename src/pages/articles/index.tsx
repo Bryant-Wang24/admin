@@ -15,7 +15,7 @@ import {
   Switch,
   DatePicker,
   Grid,
-  Radio,
+  // Radio,
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
@@ -34,9 +34,11 @@ import {
   remove,
   updateStatus,
   // updatePublishStatus,
-  updateCollectStatus,
+  // updateCollectStatus,
 } from '../../api/articles';
-import { publishStatusOptions, statusOptions } from '../../const';
+import { 
+  // publishStatusOptions,
+   statusOptions } from '../../const';
 import { getList as getTagsList } from '../../api/tags';
 import { getList as getCategoriesList } from '../../api/categories';
 
@@ -321,17 +323,17 @@ function Articles() {
     }
   };
 
-  const handleUpdateCollectStatus = async (isCollect) => {
-    const res: any = await updateCollectStatus({
-      isCollect: isCollect ? 1 : 2,
-    });
-    if (res.code === 0) {
-      Message.success(res.msg);
-      fetchData();
-    } else {
-      Message.error('一键操作失败，请重试！');
-    }
-  };
+  // const handleUpdateCollectStatus = async (isCollect) => {
+  //   const res: any = await updateCollectStatus({
+  //     isCollect: isCollect ? 1 : 2,
+  //   });
+  //   if (res.code === 0) {
+  //     Message.success(res.msg);
+  //     fetchData();
+  //   } else {
+  //     Message.error('一键操作失败，请重试！');
+  //   }
+  // };
 
   const layout = {
     labelCol: {
