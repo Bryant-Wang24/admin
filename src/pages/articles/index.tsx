@@ -354,7 +354,7 @@ function Articles() {
               添加文章
             </Button>
 
-            <Radio.Group
+            {/* <Radio.Group
               onChange={handleUpdateCollectStatus}
               type="button"
               name="lang"
@@ -362,7 +362,7 @@ function Articles() {
             >
               <Radio value>一键开启收藏</Radio>
               <Radio value={false}>一键关闭收藏</Radio>
-            </Radio.Group>
+            </Radio.Group> */}
           </div>
         </div>
 
@@ -422,7 +422,7 @@ function Articles() {
             </Col>
           </Row>
           <Row>
-            <Col span={6}>
+            {/* <Col span={6}>
               <Form.Item field="publishStatus" label="发布状态">
                 <Select placeholder="请选择文章发布状态" allowClear>
                   {[
@@ -434,7 +434,7 @@ function Articles() {
                   ))}
                 </Select>
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={6}>
               <Form.Item field="createTime" label="创建时间">
                 {/* @ts-ignore */}
