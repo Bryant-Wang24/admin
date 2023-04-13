@@ -1,4 +1,4 @@
-import { Form, Input, Button, Space } from '@arco-design/web-react';
+import { Form, Input, Button, Space, Message } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import React, { useRef, useState } from 'react';
@@ -41,6 +41,7 @@ export default function LoginForm() {
         }
       } else {
         setErrorMessage((res as any).msg);
+        Message.error((res as any).msg);
       }
     } catch (error) {
     } finally {
